@@ -97,24 +97,6 @@ All responses share this envelope:
 { "success": true, "message": "...", "data": { ... } }
 ```
 
-### Auth (public)
-
-**POST `/api/v1/auth/register`**
-
-```bash
-curl -X POST localhost:8000/api/v1/auth/register \
-  -H 'Content-Type: application/json' \
-  -d '{"name":"Zelvia","email":"zelvia@test.com","password":"password123"}'
-```
-
-**POST `/api/v1/auth/login`**
-
-```bash
-curl -X POST localhost:8000/api/v1/auth/login \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"zelvia@test.com","password":"password123"}'
-```
-
 Both return `{ token, user }`. Send the token as
 `Authorization: Bearer <token>` on every route below.
 
@@ -142,16 +124,6 @@ curl -X POST localhost:8000/api/v1/projects \
 | GET    | `/api/v1/projects/:id/tasks`         | List tasks (`?status=&priority=&page=&limit=`)  |
 | PUT    | `/api/v1/projects/:id/tasks/:taskId` | Update a task (status, priority, assignee, ...) |
 | DELETE | `/api/v1/projects/:id/tasks/:taskId` | Soft-delete a task                              |
-
-```bash
-curl -X POST localhost:8000/api/v1/projects/$PROJECT_ID/tasks \
-  -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
-  -d '{"title":"Design homepage","priority":"high"}'
-
-curl -X PUT localhost:8000/api/v1/projects/$PROJECT_ID/tasks/$TASK_ID \
-  -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
-  -d '{"status":"in_progress"}'
-```
 
 `status` is one of `todo` / `in_progress` / `done`.
 `priority` is one of `low` / `medium` / `high`.
