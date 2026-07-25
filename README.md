@@ -2,11 +2,6 @@
 
 A REST API for managing projects and tasks, built with **Go**, **Gin**, **GORM**, **PostgreSQL**, and **JWT** authentication.
 
-This is a personal backend portfolio project. It follows a layered
-architecture (`entity → dto → repository → service → handler → routes`)
-so business logic, data access, and HTTP concerns stay separated and
-testable — the same pattern used in production Go services.
-
 ## Features
 
 - JWT-based authentication (register / login, bcrypt password hashing)
