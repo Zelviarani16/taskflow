@@ -5,7 +5,7 @@ A REST API for managing projects and tasks, built with **Go**, **Gin**, **GORM**
 ## Features
 
 - JWT-based authentication (register / login, bcrypt password hashing)
-- Projects: create, list (paginated), get, update, delete — scoped to the
+- Projects: create, list (paginated), get, update, delete. scoped to the
   logged-in owner
 - Tasks nested under a project: create, list (with `status` / `priority`
   filters + pagination), update, delete, optional assignment to a user
