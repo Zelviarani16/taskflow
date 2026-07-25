@@ -12,7 +12,6 @@ A REST API for managing projects and tasks, built with **Go**, **Gin**, **GORM**
 - Soft deletes on projects and tasks (GORM `deleted_at`)
 - Consistent JSON response envelope (`success`, `message`, `data`)
 - CLI-style commands for `--migrate`, `--seed`, `--rollback`, mirroring
-  `php artisan migrate` / `db:seed` for anyone coming from Laravel
 
 ## Tech stack
 
@@ -157,7 +156,8 @@ curl -X PUT localhost:8000/api/v1/projects/$PROJECT_ID/tasks/$TASK_ID \
 `status` is one of `todo` / `in_progress` / `done`.
 `priority` is one of `low` / `medium` / `high`.
 
-  guessing.
+guessing.
+
 - **Sentinel errors in `dto`** (e.g. `ErrProjectForbidden`,
   `ErrTaskNotFound`) let `utils.StatusFromError` map any service error to
   the right HTTP status in one place, instead of scattering `if err ==
