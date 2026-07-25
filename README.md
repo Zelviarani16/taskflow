@@ -154,15 +154,6 @@ curl -X PUT localhost:8000/api/v1/projects/$PROJECT_ID/tasks/$TASK_ID \
 `status` is one of `todo` / `in_progress` / `done`.
 `priority` is one of `low` / `medium` / `high`.
 
-## Design notes
-
-- **Ownership checks live in the service layer**, not the handler — every
-  project/task mutation re-verifies `project.OwnerID == currentUserID`
-  before touching the database, so authorization logic isn't duplicated
-  per endpoint.
-- **`found bool` return values in repositories** keep "record doesn't
-  exist" (normal) separate from "the DB call failed" (a real error) — the
-  service layer decides what each means instead of the repository
   guessing.
 - **Sentinel errors in `dto`** (e.g. `ErrProjectForbidden`,
   `ErrTaskNotFound`) let `utils.StatusFromError` map any service error to
