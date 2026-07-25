@@ -16,13 +16,13 @@ A REST API for managing projects and tasks, built with **Go**, **Gin**, **GORM**
 
 ## Tech stack
 
-| Layer      | Choice                          |
-|------------|----------------------------------|
-| Language   | Go 1.22                          |
-| Router     | [Gin](https://github.com/gin-gonic/gin) |
-| ORM        | [GORM](https://gorm.io) + PostgreSQL driver |
-| Auth       | JWT ([golang-jwt/jwt/v5](https://github.com/golang-jwt/jwt)) + bcrypt |
-| Config     | [godotenv](https://github.com/joho/godotenv) |
+| Layer    | Choice                                                                |
+| -------- | --------------------------------------------------------------------- |
+| Language | Go 1.22                                                               |
+| Router   | [Gin](https://github.com/gin-gonic/gin)                               |
+| ORM      | [GORM](https://gorm.io) + PostgreSQL driver                           |
+| Auth     | JWT ([golang-jwt/jwt/v5](https://github.com/golang-jwt/jwt)) + bcrypt |
+| Config   | [godotenv](https://github.com/joho/godotenv)                          |
 
 ## Project structure
 
@@ -101,6 +101,7 @@ All responses share this envelope:
 ### Auth (public)
 
 **POST `/api/v1/auth/register`**
+
 ```bash
 curl -X POST localhost:8000/api/v1/auth/register \
   -H 'Content-Type: application/json' \
@@ -108,23 +109,25 @@ curl -X POST localhost:8000/api/v1/auth/register \
 ```
 
 **POST `/api/v1/auth/login`**
+
 ```bash
 curl -X POST localhost:8000/api/v1/auth/login \
   -H 'Content-Type: application/json' \
   -d '{"email":"zelvia@test.com","password":"password123"}'
 ```
+
 Both return `{ token, user }`. Send the token as
 `Authorization: Bearer <token>` on every route below.
 
 ### Projects (requires auth)
 
-| Method | Path                  | Description                     |
-|--------|-----------------------|----------------------------------|
-| POST   | `/api/v1/projects`     | Create a project                |
+| Method | Path                   | Description                          |
+| ------ | ---------------------- | ------------------------------------ |
+| POST   | `/api/v1/projects`     | Create a project                     |
 | GET    | `/api/v1/projects`     | List your projects (`?page=&limit=`) |
-| GET    | `/api/v1/projects/:id` | Get one project (must be owner) |
-| PUT    | `/api/v1/projects/:id` | Update a project                |
-| DELETE | `/api/v1/projects/:id` | Soft-delete a project           |
+| GET    | `/api/v1/projects/:id` | Get one project (must be owner)      |
+| PUT    | `/api/v1/projects/:id` | Update a project                     |
+| DELETE | `/api/v1/projects/:id` | Soft-delete a project                |
 
 ```bash
 curl -X POST localhost:8000/api/v1/projects \
@@ -134,12 +137,12 @@ curl -X POST localhost:8000/api/v1/projects \
 
 ### Tasks (requires auth, nested under a project)
 
-| Method | Path                                   | Description                              |
-|--------|------------------------------------------|-------------------------------------------|
-| POST   | `/api/v1/projects/:id/tasks`             | Create a task                             |
-| GET    | `/api/v1/projects/:id/tasks`             | List tasks (`?status=&priority=&page=&limit=`) |
-| PUT    | `/api/v1/projects/:id/tasks/:taskId`     | Update a task (status, priority, assignee, ...) |
-| DELETE | `/api/v1/projects/:id/tasks/:taskId`     | Soft-delete a task                        |
+| Method | Path                                 | Description                                     |
+| ------ | ------------------------------------ | ----------------------------------------------- |
+| POST   | `/api/v1/projects/:id/tasks`         | Create a task                                   |
+| GET    | `/api/v1/projects/:id/tasks`         | List tasks (`?status=&priority=&page=&limit=`)  |
+| PUT    | `/api/v1/projects/:id/tasks/:taskId` | Update a task (status, priority, assignee, ...) |
+| DELETE | `/api/v1/projects/:id/tasks/:taskId` | Soft-delete a task                              |
 
 ```bash
 curl -X POST localhost:8000/api/v1/projects/$PROJECT_ID/tasks \
@@ -158,4 +161,4 @@ curl -X PUT localhost:8000/api/v1/projects/$PROJECT_ID/tasks/$TASK_ID \
 - **Sentinel errors in `dto`** (e.g. `ErrProjectForbidden`,
   `ErrTaskNotFound`) let `utils.StatusFromError` map any service error to
   the right HTTP status in one place, instead of scattering `if err ==
-  ...` status logic across every handler.
+...` status logic across every handler.
