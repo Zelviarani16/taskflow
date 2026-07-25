@@ -12,7 +12,6 @@ A REST API for managing projects and tasks, built with **Go**, **Gin**, **GORM**
 - Soft deletes on projects and tasks (GORM `deleted_at`)
 - Consistent JSON response envelope (`success`, `message`, `data`)
 - CLI-style commands for `--migrate`, `--seed`, `--rollback`, mirroring
-  `php artisan migrate` / `db:seed` for anyone coming from Laravel
 
 ## Tech stack
 
