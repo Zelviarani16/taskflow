@@ -1,0 +1,15 @@
+# Binaries
+/taskflow-api
+*.exe
+*.test
+*.out
+
+# Env
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
